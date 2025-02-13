@@ -1,3 +1,11 @@
+.container {
+  background-image: url('../../assets/biblia.jpg'); /* Ruta a la imagen de fondo */
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+  border-radius: 8px;
+}
+
 .controls {
   display: flex;
   justify-content: center;
@@ -52,4 +60,10 @@ button:hover {
 
 .hidden-letter {
   color: transparent; /* 🔥 Oculta las letras iniciales */
+}
+
+.empty-message {
+  text-align: center;
+  color: red;
+  font-weight: bold;
 }

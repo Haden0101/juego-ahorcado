@@ -1,20 +1,22 @@
-<div class="controls">
-  <button (click)="resetGrid()">Refrescar</button>
-</div>
+<div class="container">
+  <div class="controls">
+    <button (click)="resetGrid()">Refrescar</button>
+  </div>
 
-<div class="grid">
-  <ng-container *ngIf="grid.length > 0; else emptyGrid">
-    <div 
-      *ngFor="let cell of grid; trackBy: trackByIndex" 
-      class="cell"
-      [style.backgroundColor]="cell.color"
-      [style.color]="cell.revealed ? 'black' : 'transparent'">
-      {{ cell.letter }}
-    </div>
-  </ng-container>
+  <div class="grid">
+    <ng-container *ngIf="grid.length > 0; else emptyGrid">
+      <div 
+        *ngFor="let cell of grid; trackBy: trackByIndex" 
+        class="cell"
+        [style.backgroundColor]="cell.color"
+        [style.color]="cell.revealed ? 'black' : 'transparent'">
+        {{ cell.letter }}
+      </div>
+    </ng-container>
 
-  <!-- Mensaje cuando la cuadrícula está vacía -->
-  <ng-template #emptyGrid>
-    <p class="empty-message">⚠️ La cuadrícula está vacía.</p>
-  </ng-template>
+    <!-- Mensaje cuando la cuadrícula está vacía -->
+    <ng-template #emptyGrid>
+      <p class="empty-message">⚠️ La cuadrícula está vacía.</p>
+    </ng-template>
+  </div>
 </div>

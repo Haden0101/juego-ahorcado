@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, filter } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +12,23 @@ export class VersiculoService {
   constructor() {
     // 🔥 Escuchar actualizaciones en tiempo real de otras ventanas
     this.channel.onmessage = (event) => {
-      console.log("📡 🔄 RECIBIDO (BroadcastChannel):", event.data);
-      this.verseSubject.next(event.data);
-      this.letterSubject.next(event.data);
+      if (typeof event.data === 'string') {
+        if (event.data.length === 1) {
+          console.log("📡 🔄 RECIBIDO LETRA (BroadcastChannel):", event.data);
+          this.letterSubject.next(event.data);
+        } else {
+          console.log("📡 🔄 RECIBIDO VERSÍCULO (BroadcastChannel):", event.data);
+          this.verseSubject.next(event.data);
+        }
+      }
     };
   }
 
-  getVerseUpdate() {
+  getVerseUpdate(): Observable<string> {
     return this.verseSubject.asObservable();
   }
 
-  setVerse(verse: string) {
+  setVerse(verse: string): void {
     console.log("📡 ADMIN: Enviando versículo en tiempo real:", verse);
     localStorage.setItem('versiculo', verse);
     this.verseSubject.next(verse);
@@ -31,10 +37,6 @@ export class VersiculoService {
 
   getCurrentVerse(): string {
     return localStorage.getItem('versiculo') || '';
-  }
-
-  sendVerse(verse: string) {
-    this.verseSubject.next(verse);
   }
 
   sendRevealedLetter(letra: string): void {
@@ -50,8 +52,8 @@ export class VersiculoService {
     this.channel.postMessage(letra);
   }
 
-  getRevealedLetter() {
-      return this.letterSubject.asObservable();
+  getRevealedLetter(): Observable<string> {
+    return this.letterSubject.asObservable();
   }
 
   revealEntireVerse(): void {
