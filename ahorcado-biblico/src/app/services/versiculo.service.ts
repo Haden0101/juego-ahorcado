@@ -42,14 +42,17 @@ export class VersiculoService {
   sendRevealedLetter(letra: string): void {
     console.log(`📢 SERVICIO: Enviando letra -> "${letra}"`);
 
+    // Normalizar y eliminar diacríticos
+    const normalizedLetter = letra.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
     let revealedLetters = JSON.parse(localStorage.getItem('revealedLetters') || '[]');
-    if (!revealedLetters.includes(letra)) {
-        revealedLetters.push(letra);
+    if (!revealedLetters.includes(normalizedLetter)) {
+        revealedLetters.push(normalizedLetter);
     }
 
     localStorage.setItem('revealedLetters', JSON.stringify(revealedLetters));
-    this.letterSubject.next(letra);  
-    this.channel.postMessage(letra);
+    this.letterSubject.next(normalizedLetter);  
+    this.channel.postMessage(normalizedLetter);
   }
 
   getRevealedLetter(): Observable<string> {

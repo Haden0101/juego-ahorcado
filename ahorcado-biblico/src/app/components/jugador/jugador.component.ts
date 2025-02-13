@@ -106,10 +106,14 @@ export class JugadorComponent implements OnInit, OnDestroy {
       return;
     }
 
+    // Normalizar y eliminar diacríticos
+    const normalizedLetter = letra.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
     let updated = false;
 
     this.grid.forEach((cell) => {
-      if (cell.letter.toLowerCase() === letra.toLowerCase() && !cell.revealed) {
+      const normalizedCellLetter = cell.letter.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      if (normalizedCellLetter.toLowerCase() === normalizedLetter.toLowerCase() && !cell.revealed) {
         cell.revealed = true;  // ✅ Revelar la letra
         cell.color = 'yellow'; // ✅ Pintar solo coincidencias
         updated = true;

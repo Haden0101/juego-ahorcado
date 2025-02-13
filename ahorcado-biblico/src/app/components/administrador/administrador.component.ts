@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { VersiculoService } from '../../services/versiculo.service';
 
@@ -12,6 +12,8 @@ import { VersiculoService } from '../../services/versiculo.service';
 export class AdministradorComponent {
   versiculo: string = '';
   letra: string = '';
+  
+  @ViewChild('letraInput') letraInput!: ElementRef;
 
   constructor(private versiculoService: VersiculoService) {}
 
@@ -25,6 +27,7 @@ export class AdministradorComponent {
     console.log(`📢 ADMINISTRADOR: Aplicando letra "${letraIngresada}"`);
     this.versiculoService.sendRevealedLetter(letraIngresada);
     this.letra = ''; // Limpiar el campo de entrada después de enviar la letra
+    this.letraInput.nativeElement.focus(); // Enfocar el campo de entrada después de enviar la letra
   }
 
   mostrarTodoVersiculo(): void {

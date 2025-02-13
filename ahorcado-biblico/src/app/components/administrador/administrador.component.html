@@ -1,7 +1,7 @@
 <div class="container">
     <div class="left">
       <textarea [(ngModel)]="versiculo" placeholder="Escribe el versículo aquí"></textarea>
-      <input [(ngModel)]="letra" placeholder="Escribe una letra" />
+      <input #letraInput [(ngModel)]="letra" placeholder="Escribe una letra" />
     </div>
     <div class="right">
       <button (click)="applyVerse()">Aplicar Versículo</button>
