@@ -1,0 +1,55 @@
+.controls {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+button {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(25, 30px); /* 25 columnas */
+  grid-template-rows: repeat(6, 30px); /* 6 filas */
+  gap: 5px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.cell {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: orange; /* Fondo predeterminado */
+  transition: background-color 0.3s ease-in-out;
+}
+
+.cell.revealed {
+  background-color: yellow !important; /* 🔥 Solo cambia las letras descubiertas */
+  color: black !important;
+}
+
+.hidden-letter {
+  color: transparent; /* 🔥 Oculta las letras iniciales */
+}
